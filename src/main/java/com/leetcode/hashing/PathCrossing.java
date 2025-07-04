@@ -1,45 +1,42 @@
 package com.leetcode.hashing;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class PathCrossing {
 
     public boolean isPathCrossing(String path) {
 
         int len = path.length();
-        int[] loc = new int[2]; // start loc is always 0,0
+        int x  = 0;
+        int y = 0;
+
+
+        Set<List<Integer>> locTrack = new HashSet<>();
+        locTrack.add(List.of(x, y));
+
         for(int i =0; i < len; i++)
         {
             char c = path.charAt(i);
             switch (c)
             {
-                case 'N' -> {
-                    loc[1] += 1;
-                    if(checkPathCrossed(loc))
-                        return true;
-                }
-                case 'E' -> {
-                    loc[0] += 1;
-                    if(checkPathCrossed(loc))
-                        return true;
-                }
-                case 'S' -> {
-                    loc[1] += -1;
-                    if(checkPathCrossed(loc))
-                        return true;
-                }
-                case 'W' -> {
-                    loc[0] += -1;
-                    if(checkPathCrossed(loc))
-                        return true;
-                }
-
+                case 'N' -> y++;
+                case 'E' -> x++;
+                case 'S' -> y--;
+                case 'W' -> x--;
                 default -> throw new RuntimeException("Not a valid char");
             }
-        }
-        return false; // will never reach based on the input data costraint.
-    }
 
-    private boolean checkPathCrossed(int[] loc) {
-        return loc[0] == 0 && loc[1] == 0;
+            List<Integer> loc = List.of(x, y);
+
+            if(!locTrack.add(loc))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

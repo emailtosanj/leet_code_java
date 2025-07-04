@@ -14,8 +14,8 @@ public class PathCrossing {
         int y = 0;
 
 
-        Set<List<Integer>> locTrack = new HashSet<>();
-        locTrack.add(List.of(x, y));
+        Set<String> locTrack = new HashSet<>();
+        locTrack.add(x +","+ y);
 
         for(int i =0; i < len; i++)
         {
@@ -29,9 +29,7 @@ public class PathCrossing {
                 default -> throw new RuntimeException("Not a valid char");
             }
 
-            List<Integer> loc = List.of(x, y);
-
-            if(!locTrack.add(loc))
+            if(!locTrack.add(x +","+ y))
             {
                 return true;
             }

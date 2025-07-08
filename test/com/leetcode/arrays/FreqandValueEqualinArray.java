@@ -1,6 +1,5 @@
 package com.leetcode.arrays;
 
-import java.util.*;
 
 public class FreqandValueEqualinArray {
 
@@ -13,33 +12,29 @@ public class FreqandValueEqualinArray {
         }
 
         int[] nums = new int[501];
-        List<Integer> lst = new ArrayList<>();
-        //[2,2,2,3,3]
 
         for(int num : arr)
         {
             nums[num]++;
         }
 
+        int max = -1;
         for(int num : arr)
         {
             if(nums[num] == num)
             {
-                lst.add(num);
+                max = Math.max(max, num);
             }
         }
 
 
-        if(lst.size() == 0)
-        {
-            return -1;
-        }
-        else
+        if (max != 0)
         {
 
-            Collections.sort(lst);
-            return lst.get(lst.size()-1);
+            return max;
         }
+        else
+            return ret;
 
     }
 

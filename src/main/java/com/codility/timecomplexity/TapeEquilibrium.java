@@ -53,54 +53,40 @@ public class TapeEquilibrium {
 
     public int solution(int[] A) {
 
-        // Implement your solution here
-        // int [] A = {3, 1, 2, 4, 3};
 
-        int alen = A.length - 1;
-        int min = 0;
-
-
-        for( int p = 1; p <= alen; p++ )
+        int incSum = 0;
+        int [] incSumArrPart1 = new int[A.length - 1];
+        for (int i=0; i < A.length - 1; i++)
         {
+            incSum = incSum + A[i]; // 0-0, 1-1, 2-3, 3-7, 4-10
+            incSumArrPart1[i] = incSum;
+        }
 
-            /**
-            A[0] = 3
-            A[1] = 1
-            A[2] = 2
-            A[3] = 4
-            A[4] = 3
+        incSum = 0;
+        int [] incSumArrPart2 = new int[A.length - 1];
 
-            content_copy
-            We can split this tape in four places:
+        for ( int i = A.length-1; i > 0; i-- )
+        {
+            incSum = incSum + A[i]; // 4 3, 3 7, 2 9, 1 10
+            incSumArrPart2[i-1] = incSum;
+        }
 
-            P = 1, difference = |3 − 10| = 7
-            P = 2, difference = |4 − 9| = 5
-            P = 3, difference = |6 − 7| = 1
-            P = 4, difference = |10 − 3| = 7
-            **/
+        // p = // 0 - 1 / 1 - 2 / 2 - 3 / 3 - 4 //
 
-            int part1 = 0;
-            int part2 = 0;
-
-            for(int i = p-1; i >= 0; i--)
-            {
-                part1 = part1 + A[i];
-            }
-
-            for(int j = p; j < A.length; j++)
-            {
-                part2 = part2 + A[j];
-            }
-
+        int min = 0;
+        for (int p = 0; p < incSumArrPart1.length; p++)
+        {
+            int part1 = incSumArrPart1[p];
+            int part2 = incSumArrPart2[p];
             int diff = Math.abs(part1 - part2);
-            if(p == 1)
+            if(p>0)
+            {
+                min = Math.min(diff, min);
+            }
+            else
             {
                 min = diff;
             }
-            else {
-                min = Math.min(min, diff);
-            }
-
         }
         return min;
     }
